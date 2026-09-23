@@ -17,14 +17,14 @@ partial struct TestingSystem : ISystem
     public void OnUpdate(ref SystemState state)
     {
         // 선택되지 않은 이동 가능 엔티티 수를 세는 비활성 테스트 예제다.
-        int unitCount = 0;
-        foreach ( RefRW<Friendly> friendly
-                 in SystemAPI.Query<
-                     RefRW<Friendly>>())
-        {
-            unitCount++;
-        }
-        
-        Debug.Log("unitCount : " + unitCount);
+        // int unitCount = 0;
+        // foreach ( RefRW<Friendly> friendly
+        //          in SystemAPI.Query<
+        //              RefRW<Friendly>>())
+        // {
+        //     unitCount++;
+        // }
+        //
+        // Debug.Log("unitCount : " + unitCount);
     }
 }

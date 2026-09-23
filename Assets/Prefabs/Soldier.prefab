@@ -98,6 +98,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 250601604855174288, guid: 3a272dcd8486d4db1958e7f180cac7a7, type: 3}
+      propertyPath: range
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 250601604855174288, guid: 3a272dcd8486d4db1958e7f180cac7a7, type: 3}
+      propertyPath: targetFaction
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1113099806329031882, guid: 3a272dcd8486d4db1958e7f180cac7a7, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -163,6 +171,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4908318137552410301, guid: 3a272dcd8486d4db1958e7f180cac7a7, type: 3}
       insertIndex: -1
       addedObject: {fileID: -6904635841482217680}
+    - targetCorrespondingSourceObject: {fileID: 4908318137552410301, guid: 3a272dcd8486d4db1958e7f180cac7a7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -3683302967136809581}
   m_SourcePrefab: {fileID: 100100000, guid: 3a272dcd8486d4db1958e7f180cac7a7, type: 3}
 --- !u!4 &4031672300796771669 stripped
 Transform:
@@ -200,3 +211,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75337909b13af4f9faee96b5e2de53b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FriendlyAuthoring
+--- !u!114 &-3683302967136809581
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6003183939559497381}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8de4ceaf590646d08ca6e7d022cd3a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ShootAttackAuthoring
+  timerMax: 0.2

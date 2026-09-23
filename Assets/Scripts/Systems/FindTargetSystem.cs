@@ -3,6 +3,8 @@ using Unity.Collections;
 using Unity.Entities;
 using Unity.Physics;
 using Unity.Transforms;
+using UnityEngine;
+using UnityEngine.Analytics;
 
 partial struct FindTargetSystem : ISystem
 {
@@ -16,13 +18,41 @@ partial struct FindTargetSystem : ISystem
         
         foreach ((
                      RefRO<LocalTransform> localTransform,
-                     RefRO<FindTarget> findTarget)
+                     RefRW<FindTarget> findTarget,
+                     RefRW<Target> target)
                  in SystemAPI.Query<
                      RefRO<LocalTransform>,
-                     RefRO<FindTarget>>())
+                     RefRW<FindTarget>,
+                    RefRW<Target>>())
         {
+            findTarget.ValueRW.timer -= SystemAPI.Time.DeltaTime;
+            if (findTarget.ValueRO.timer > 0f)
+            {
+                //timer not elapsed
+                continue;
+            }
+            findTarget.ValueRW.timer = findTarget.ValueRO.timerMax;
+            
             distanceHitList.Clear();
-            // collisionWorld.OverlapSphere(localTransform.ValueRO.Position ,findTarget.ValueRO.range, ref distanceHitList, );
+            CollisionFilter filter = new CollisionFilter
+            {
+                BelongsTo = ~0u,
+                CollidesWith = 1u << GameAssets.UNITS_LAYER,
+                GroupIndex = 0
+            };
+            if (collisionWorld.OverlapSphere(localTransform.ValueRO.Position, findTarget.ValueRO.range,
+                    ref distanceHitList, filter))
+            {
+                foreach (DistanceHit hit in distanceHitList)
+                {
+                    Unit targetUnit = SystemAPI.GetComponent<Unit>(hit.Entity);
+                    if (targetUnit.faction == findTarget.ValueRO.targetFaction)
+                    {
+                        target.ValueRW.targetEntity = hit.Entity;
+                        break;
+                    }
+                }
+            }
         }
     }
 }
