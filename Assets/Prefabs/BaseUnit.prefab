@@ -105,6 +105,8 @@ GameObject:
   - component: {fileID: 5448505794991662322}
   - component: {fileID: 250601604855174288}
   - component: {fileID: -3096696711655722759}
+  - component: {fileID: -5759484729750327827}
+  - component: {fileID: 6597627553500349707}
   m_Layer: 6
   m_Name: BaseUnit
   m_TagString: Untagged
@@ -232,3 +234,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05308f9eb626148f4869068cc8c916f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TargetAuthoring
+--- !u!114 &-5759484729750327827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4908318137552410301}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cdbd024326cea348818f1359a5db5ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HealthAuthoiring
+  healthAmount: 100
+--- !u!114 &6597627553500349707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4908318137552410301}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c16549610bfe4458aa9389201d072bb6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Entities.Hybrid::Unity.Entities.Hybrid.Baking.LinkedEntityGroupAuthoring

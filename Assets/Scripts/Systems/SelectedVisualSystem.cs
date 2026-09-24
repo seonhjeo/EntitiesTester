@@ -21,18 +21,18 @@ partial struct SelectedVisualSystem : ISystem
         // 선택 상태와 관계없이 표시 갱신 이벤트를 확인한다.
         foreach (RefRO<Selected> selected in SystemAPI.Query<RefRO<Selected>>().WithPresent<Selected>())
         {
-            // 선택 시 지정한 크기로 표시한다.
-            if (selected.ValueRO.onSelected)
-            {
-                RefRW<LocalTransform> visualLocalTransform = SystemAPI.GetComponentRW<LocalTransform>(selected.ValueRO.VisualEntity);
-                visualLocalTransform.ValueRW.Scale = selected.ValueRO.ShowScale;
-            }
-
             // 선택 해제 시 크기를 0으로 줄여 숨긴다.
             if (selected.ValueRO.onDeselected)
             {
                 RefRW<LocalTransform> visualLocalTransform = SystemAPI.GetComponentRW<LocalTransform>(selected.ValueRO.VisualEntity);
                 visualLocalTransform.ValueRW.Scale = 0f;
+            }
+            
+            // 선택 시 지정한 크기로 표시한다.
+            if (selected.ValueRO.onSelected)
+            {
+                RefRW<LocalTransform> visualLocalTransform = SystemAPI.GetComponentRW<LocalTransform>(selected.ValueRO.VisualEntity);
+                visualLocalTransform.ValueRW.Scale = selected.ValueRO.ShowScale;
             }
         }
     }
