@@ -34,23 +34,25 @@ partial struct BulletMoverSystem : ISystem
             }
             
             LocalTransform targetLocalTransform = SystemAPI.GetComponent<LocalTransform>(target.ValueRO.targetEntity);
+            ShootVictim targetShootVictim = SystemAPI.GetComponent<ShootVictim>(target.ValueRO.targetEntity);
+            float3 targetPosition = targetLocalTransform.TransformPoint(targetShootVictim.hitLocalPosition);
             
-            float distanceBeforeSq = math.distancesq(localTransform.ValueRW.Position, targetLocalTransform.Position);
+            float distanceBeforeSq = math.distancesq(localTransform.ValueRW.Position, targetPosition);
             
-            float3 moveDirection = targetLocalTransform.Position - localTransform.ValueRO.Position;
+            float3 moveDirection = targetPosition - localTransform.ValueRO.Position;
             moveDirection = math.normalizesafe(moveDirection);
             
             localTransform.ValueRW.Position += bullet.ValueRO.speed * SystemAPI.Time.DeltaTime * moveDirection;
 
-            float distanceAfterSq = math.distancesq(localTransform.ValueRW.Position, targetLocalTransform.Position);
+            float distanceAfterSq = math.distancesq(localTransform.ValueRW.Position, targetPosition);
 
             if (distanceBeforeSq < distanceAfterSq)
             {
-                localTransform.ValueRW.Position = targetLocalTransform.Position;
+                localTransform.ValueRW.Position = targetPosition;
             }
             
             float destroyDistanceSq = 0.2f;
-            if (math.distancesq(localTransform.ValueRW.Position, targetLocalTransform.Position) < destroyDistanceSq)
+            if (math.distancesq(localTransform.ValueRW.Position, targetPosition) < destroyDistanceSq)
             {
                 RefRW<Health> targetHealth = SystemAPI.GetComponentRW<Health>(target.ValueRO.targetEntity);
                 targetHealth.ValueRW.healthAmount -= bullet.ValueRO.damageAmount;
