@@ -4,6 +4,7 @@ using UnityEngine;
 class HealthAuthoiring : MonoBehaviour
 {
     public int healthAmount;
+    public int healthAmountMax;
     
     class HealthAuthoiringBaker : Baker<HealthAuthoiring>
     {
@@ -13,6 +14,7 @@ class HealthAuthoiring : MonoBehaviour
             AddComponent(entity, new Health
             {
                 healthAmount = authoring.healthAmount,
+                healthAmountMax = authoring.healthAmountMax,
             });
         }
     }
@@ -21,5 +23,6 @@ class HealthAuthoiring : MonoBehaviour
 public struct Health : IComponentData
 {
     public int healthAmount;
+    public int healthAmountMax;
 }
 

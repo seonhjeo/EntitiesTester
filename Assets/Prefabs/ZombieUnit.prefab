@@ -104,6 +104,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4908318137552410301, guid: 3a272dcd8486d4db1958e7f180cac7a7, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3978635585336580216}
+    - targetCorrespondingSourceObject: {fileID: 4908318137552410301, guid: 3a272dcd8486d4db1958e7f180cac7a7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -8534827434375679065}
   m_SourcePrefab: {fileID: 100100000, guid: 3a272dcd8486d4db1958e7f180cac7a7, type: 3}
 --- !u!4 &1104787726427542763 stripped
 Transform:
@@ -140,3 +143,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShootVictionAuthoring
   hitPositionTransform: {fileID: 5565325288591255656}
+--- !u!114 &-8534827434375679065
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7775475687966586651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 542babf06da7f445e8c4c68912f57155, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RandomWalkingAuthoring
+  targetPosition:
+    x: 0
+    y: 0
+    z: 0
+  originPosition:
+    x: 0
+    y: 0
+    z: 0
+  distanceMin: 0
+  distanceMax: 0
+  randomSeed: 10

@@ -10,6 +10,8 @@ using Unity.Transforms;
 /// </summary>
 partial struct UnitMoverSystem : ISystem
 {
+    public const float REACHED_TARGET_POSITION_DISTANCE_SQ = 2f;
+    
     /// <summary>
     /// 현재 시간 간격을 이동 잡에 전달하고, 필요한 컴포넌트를 가진 엔티티들의 처리를 예약한다.
     /// </summary>
@@ -70,8 +72,8 @@ public partial struct UnitMoverJob : IJobEntity
         // 목표까지의 제곱 거리를 비교하고 도착 범위 안이면 정지한다.
         float3 moveDirection = unitMover.targetPosition - localTransform.Position;
 
-        float reachedTargetDistanceSq = 2f;
-        if (math.lengthsq(moveDirection) < reachedTargetDistanceSq)
+        float reachedTargetDistanceSq = UnitMoverSystem.REACHED_TARGET_POSITION_DISTANCE_SQ;
+        if (math.lengthsq(moveDirection) <= reachedTargetDistanceSq)
         {
             physicsVelocity.Linear = float3.zero;
             physicsVelocity.Angular = float3.zero;
