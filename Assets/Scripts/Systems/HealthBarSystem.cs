@@ -2,18 +2,48 @@ using Unity.Burst;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Transforms;
+using UnityEngine;
 
+[UpdateInGroup(typeof(LateSimulationSystemGroup))]
 partial struct HealthBarSystem : ISystem
 {
-    [BurstCompile]
+    // [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
-        
-        
-        foreach (RefRO<HealthBar> healthBar in SystemAPI.Query<RefRO<HealthBar>>())
+        Vector3 cameraForward = Vector3.zero;
+        if (Camera.main != null)
         {
+            cameraForward = Camera.main.transform.forward;
+        }
+        
+        foreach ((RefRW<LocalTransform> localTransform, RefRO<HealthBar> healthBar) in SystemAPI.Query<RefRW<LocalTransform>, RefRO<HealthBar>>())
+        {
+            localTransform.ValueRW.Rotation = Quaternion.LookRotation(cameraForward, math.up());
+
+            LocalTransform parentLocalTransform = SystemAPI.GetComponent<LocalTransform>(healthBar.ValueRO.healthEntity);
+            if (localTransform.ValueRO.Scale == 1f)
+            {
+                localTransform.ValueRW.Rotation = parentLocalTransform.InverseTransformRotation(quaternion.LookRotation(cameraForward, math.up()));
+            }
+            
             Health health = SystemAPI.GetComponent<Health>(healthBar.ValueRO.healthEntity);
+            if (!health.onHealthChanged)
+            {
+                continue;
+            }
+            
+            Debug.Log("Health Visual Update");
+            
             float healthNormalized = (float)health.healthAmount / health.healthAmountMax;
+
+            if (healthNormalized == 1f)
+            {
+                localTransform.ValueRW.Scale = 0f;
+            }
+            else
+            {
+                localTransform.ValueRW.Scale = 1f;
+            }
 
             RefRW<PostTransformMatrix> barVisualPostTransformMatrix =
                 SystemAPI.GetComponentRW<PostTransformMatrix>(healthBar.ValueRO.barVisualEntity);

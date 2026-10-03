@@ -15,6 +15,7 @@ class HealthAuthoiring : MonoBehaviour
             {
                 healthAmount = authoring.healthAmount,
                 healthAmountMax = authoring.healthAmountMax,
+                onHealthChanged = true
             });
         }
     }
@@ -24,5 +25,6 @@ public struct Health : IComponentData
 {
     public int healthAmount;
     public int healthAmountMax;
+    public bool onHealthChanged;
 }
 

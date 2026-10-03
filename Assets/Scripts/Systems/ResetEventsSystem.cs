@@ -5,7 +5,7 @@ using Unity.Entities;
 /// LateSimulationSystemGroup에서 선택 관련 이벤트 플래그를 초기화한다.
 /// SelectedVisualSystem이 먼저 플래그를 처리하도록 두 시스템의 실행 순서가 지정되어 있다.
 /// </summary>
-[UpdateInGroup(typeof(LateSimulationSystemGroup))]
+[UpdateInGroup(typeof(LateSimulationSystemGroup), OrderLast = true)]
 partial struct ResetEventsSystem : ISystem
 {
     /// <summary>
@@ -20,6 +20,12 @@ partial struct ResetEventsSystem : ISystem
         {
             selected.ValueRW.onSelected = false;
             selected.ValueRW.onDeselected = false;
+        }
+        
+        // 비활성화된 Selected도 포함해 선택·해제 이벤트를 초기화한다.
+        foreach (RefRW<Health> health in SystemAPI.Query<RefRW<Health>>())
+        {
+            health.ValueRW.onHealthChanged = false;
         }
     }
 }
